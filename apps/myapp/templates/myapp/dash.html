@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <style media="screen">
+    #container {
+      margin: 20px auto;
+      padding: 20px;s
+    }
+    </style>
+    <title></title>
+  </head>
+  <body>
+  <div id="container">
+      <h1>Welcome {{user.name}}!</h1>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Items</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/dash">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/logout">Logout</a>
+      </li>
+    </ul>
+
+    <a href="/new">  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Add New Items</button></a>
+
+  </div >
+</nav>
+<br>
+<h2>Your Wish List</h2>
+<table class="table table-hover">
+  <thead>
+    <tr class="table-primary">
+      <th scope="col">Item</th>
+      <th scope="col">Added By</th>
+      <th scope="col">Date Added</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      {%for item in myitems%}
+      <td><a href="/show/{{item.id}}">{{item.product}}</a></td>
+      <td>{{item.creater.username}}</td>
+      <td>{{item.created_at}}</td>
+      <td>
+        {% if item.creater.id == request.session.user_id %}
+        <a href="/delete/{{item.id}}"><button class="btn btn-danger"> Delete </button></a>
+        {%else%}
+        <a href="/cancel/{{item.id}}"><button class="btn btn-warning"> Remove from Wish List </button></a>
+        {%endif%}
+      </td>
+    </tr>
+    {%endfor%}
+  </tbody>
+</table>
+<h2>Other User's Wish List</h2>
+  <table class="table table-hover">
+    <!-- <thead class="thead-dark"> -->
+      <tr class="table-success">
+        <th scope="col">Item</th>
+        <th scope="col">Added By</th>
+        <th scope="col">Date Added</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    {% for item in items %}
+    <tr>
+      <td><a href="/show/{{item.id}}">{{ item.product }}</a></td>
+      <td>{{item.creater.name}}</td>
+      <td>{{ item.created_at }}</td>
+      <td>
+      <a href="/join/{{item.id}}"><button class="btn btn-success">Add to Whish List</button></a>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+  </body>
+</html>

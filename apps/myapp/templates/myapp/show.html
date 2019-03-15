@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<title>{{item.product}}</title>
+	<style media="screen">
+	#container {
+		margin: 20px auto;
+		padding: 20px;s
+	}
+	</style>
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<a class="navbar-brand" href="#">Items</a>
+<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+	<span class="navbar-toggler-icon"></span>
+</button>
+
+<div class="collapse navbar-collapse" id="navbarSupportedContent">
+	<ul class="navbar-nav mr-auto">
+		<li class="nav-item">
+			<a class="nav-link" href="/dash">Home</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="/logout">Logout</a>
+		</li>
+	</ul>
+
+	<a href="/new">  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Add New Item</button></a>
+
+</div>
+</nav>
+<div id="container">
+
+	<h1>{{item.product}}</h1>
+<br><hr>
+<table class="table table-hover">
+	<tr class="table-primary">
+		<th scope="col"><h3>User's who added this product under their wish list</h3></th>
+	</tr>
+		{% for user in users%}
+		{% if not user.id == item.creater.id %}
+	<tr>
+		<td><p>{{user.username}}</p></td>
+	</tr>
+	{% endif %}
+	{% endfor %}
+
+	</table>
+	</div>
+</body>
+</html>
